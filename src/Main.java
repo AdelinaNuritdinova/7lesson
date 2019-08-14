@@ -3,55 +3,45 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Map<String, String[]> dict = new HashMap<>();
-
-        dict.put("Детский", new String[]{"Маленький", "Инфантильный"});
-        dict.put("Стремный", new String[]{"Некрасивый", "Страшный"});
-        dict.put("Мерзкий", new String[]{"Ужасный", "Отвратный"});
-        dict.put("Свежий", new String[]{"Новый" , "Молодой"});
-
-        Set<Map.Entry<String, String[]>> r = dict.entrySet();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Put ur word");
-        String word = scanner.nextLine();
+        Map<String, String[]> dics = new HashMap<>();
 
-        for (Map.Entry<String, String[]> rd : r) {
-            for (String st : rd.getValue()) {
-                if (word.equals(st)) {
-                    System.out.println(rd.getKey());
-                    for (String s : rd.getValue()) {
-                        System.out.println(s);
+        dics.put("Детский", new String[]{"Маленький", "Инфантильный"});
+        dics.put("Стремный", new String[]{"Некрасивый", "Страшный"});
+        dics.put("Мерзкий", new String[]{"Ужасный", "Отвратный"});
+        dics.put("Свежий", new String[]{"Новый" , "Молодой"});
+
+        while (true) {
+            System.out.println("Enter your word");
+            String w = scanner.nextLine();
+
+            Set<Map.Entry<String, String[]>> entries = dics.entrySet();
+            Map<String, String[]> dictionaryMap = new HashMap<>();
+
+            for (Map.Entry<String, String[]> entry : entries) {
+                String key = entry.getKey();
+                String[] value = entry.getValue();
+                for (int i = 0; i < value.length; i++) {
+                    String syn = value[i];
+                    String[] value2 = new String[value.length];
+                    for (int i2 = 0; i2 < value.length; i2++) {
+                        String originValue = value[i2];
+                        if (originValue.equals(syn)) {
+                            value2[i2] = key;
+                        } else {
+                            value2[i2] = originValue;
+                        }
+                    }
+                    dictionaryMap.put(syn, value2);
+
+                    if (w.equals(syn)) {
+                        for (String v : value2) {
+
+                            System.out.println(v);
+                        }
                     }
                 }
             }
-        }
-        for (Map.Entry<String, String[]> rd : r) {
-            if (word.equals(rd.getKey())) {
-                for (String s : rd.getValue()) {
-                    System.out.println(s);
-                }
-            }
-        }
-
-        Map<String, String[]> dictionaryMap = new HashMap<>();
-
-        for (Map.Entry<String, String[]> returnKeyValue : r) {
-            String key = returnKeyValue.getKey();
-            String[] value = returnKeyValue.getValue();
-            for (int i = 0; i < value.length; i++) {
-                String synonym = value[i];
-                String[] values = new String[value.length];
-                for (int a = 0; a < values.length; a++){
-                    String value2 = value[a];
-                    if(value2.equals(synonym)){
-                        values[a] = key;
-                    }else{
-                        values[a]=value2;
-                    }
-                }
-                dictionaryMap.put(synonym,values);
-            }
-
         }
     }
 }
